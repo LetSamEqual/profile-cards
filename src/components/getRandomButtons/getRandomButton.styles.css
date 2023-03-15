@@ -1,0 +1,27 @@
+.randomBtnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9ED8DB;
+    margin-top: 10px;
+    width: 230px;
+    height: 63px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+h2{
+    font-size: 20px;
+    text-align: center;
+    font-family: "Poppins";
+}
+
+.randomBtnContainer:hover{
+    background-color: #E9FFF9;
+}
+
+.randomBtnContainer:active{
+    background-color: #d64045;
+    color: white;
+}

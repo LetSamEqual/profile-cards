@@ -1,0 +1,18 @@
+.nextBtn{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 40px solid #9ED8DB;
+    cursor: pointer;
+}
+
+.nextBtn:hover{
+    border-left: 40px solid #E9FFF9;
+}
+
+.nextBtn:active{
+    border-left: 40px solid #d64045;
+}

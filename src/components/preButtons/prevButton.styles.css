@@ -1,0 +1,18 @@
+.prevBtn{
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-right: 40px solid #9ED8DB;
+    cursor: pointer;
+}
+
+.prevBtn:hover{
+    border-right: 40px solid #E9FFF9;
+}
+
+.prevBtn:active{
+    border-right: 40px solid #d64045;
+}
