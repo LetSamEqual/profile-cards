@@ -19,7 +19,7 @@ const ProfileCards = ({ profiles, currentProfile }) => {
         <h3>Function: <span>{profiles[currentProfile].employment.title}</span></h3>
         <h3>Primary skill: <span>{profiles[currentProfile].employment.key_skill}</span></h3>
         <h3>Email: <span>{profiles[currentProfile].email}</span></h3>
-        <h3>Phone:<span>{profiles[currentProfile].phone_number}</span></h3>
+        <h3>Phone: <span>{profiles[currentProfile].phone_number}</span></h3>
       </div>
     </div>
   );
