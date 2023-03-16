@@ -5,18 +5,20 @@ import NextButton from "./components/nextButtons/nextButton";
 import PrevButton from "./components/preButtons/prevButton";
 import GetRandomButton from "./components/getRandomButtons/getRandomButton";
 import LoadingScreen from "./components/loadingState/loadingState";
+import ProfileCardContainer from "./components/profileCardContainer/profileCardContainer";
 
 function App() {
   const [profiles, setProfiles] = useState([]); //stores profiles from fetch
   const [curProfile, setCurProfile] = useState(0); //sets profile to display
-  const [loading, setLoading] = useState(false) // handles page loading
+  const [prevProfile, setPrevProfile] = useState(29);
+  const [nextProfile, setNextProfile] = useState(1);
+  const [loading, setLoading] = useState(false); // handles page loading
   const dataFetchedRef = useRef(false); // keeps fetch from calling twice
 
   // fetch robots on mount
   useEffect(() => {
- 
     const getGitHubProfiles = async () => {
-      setLoading(true) // handles loading page
+      setLoading(true); // handles loading page
       const data = await fetch(
         "https://random-data-api.com/api/users/random_user?size=30?page=1"
       );
@@ -32,7 +34,7 @@ function App() {
       });
 
       setProfiles(formatResults);
-      setLoading(false)
+      setLoading(false);
     };
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
@@ -41,37 +43,78 @@ function App() {
   }, []);
 
   const handleNextProfile = () => {
-    if (curProfile == 29) {
+    if (nextProfile == 29) {
+      setPrevProfile(28);
+      setCurProfile(29);
+      setNextProfile(0);
+    } else if (curProfile == 29) {
+      setPrevProfile(29);
       setCurProfile(0);
-      return;
+      setNextProfile(1);
+    } else if (prevProfile == 29) {
+      setPrevProfile(0);
+      setCurProfile(1);
+      setNextProfile(2);
+    } else {
+      setPrevProfile(prevProfile + 1);
+      setNextProfile(nextProfile + 1);
+      setCurProfile(curProfile + 1);
     }
-    setCurProfile(curProfile + 1);
   };
 
   const handlePrevProfile = () => {
-    if (curProfile == 0) {
+    if (prevProfile == 0) {
+      setPrevProfile(29);
+      setCurProfile(0);
+      setNextProfile(1);
+    } else if (curProfile == 0) {
+      setPrevProfile(28);
+      setCurProfile(29);
+      setNextProfile(0);
+    } else if (nextProfile == 0) {
+      setPrevProfile(27);
       setCurProfile(28);
-      return;
+      setNextProfile(29);
+    } else {
+      setPrevProfile(prevProfile - 1);
+      setCurProfile(curProfile - 1);
+      setNextProfile(nextProfile - 1);
     }
-    setCurProfile(curProfile - 1);
   };
 
   const handleRndmProfile = () => {
-    setCurProfile(Math.floor(Math.random() * 30));
+    const randomProfile = Math.floor(Math.random() * 30);
+    if (randomProfile == 29) {
+      setPrevProfile(28);
+      setCurProfile(29);
+      setNextProfile(0);
+    } else if (randomProfile == 0) {
+      setPrevProfile(29);
+      setCurProfile(0);
+      setNextProfile(1);
+    } else {
+      setPrevProfile(randomProfile - 1);
+      setCurProfile(randomProfile);
+      setNextProfile(randomProfile + 1);
+    }
   };
 
   return (
     <div className='App'>
-    {profiles.length > 1 && (
-      <ProfileCards profiles={profiles} currentProfile={curProfile} />
+      {profiles.length > 1 && (
+        <div className='cardContainer'>
+        <ProfileCardContainer className="carousel" profiles={profiles} prevProfile={prevProfile} curProfile={curProfile} nextProfile={nextProfile} onClickHandlerPrev={handlePrevProfile} onClickHandlerNext={handleNextProfile}/>
+        </div>
       )}
-      {loading ? <LoadingScreen /> :
+      {loading ? (
+        <LoadingScreen />
+      ) : (
         <div className='btnContainer'>
           <PrevButton onClickHandler={handlePrevProfile} />
           <GetRandomButton onClickHandler={handleRndmProfile} />
           <NextButton onClickHandler={handleNextProfile} />
         </div>
-    }
+      )}
     </div>
   );
 }
