@@ -100,16 +100,24 @@ function App() {
   };
 
   return (
-    <div className='App'>
+    <div className="App">
       {profiles.length > 1 && (
-        <div className='cardContainer'>
-        <ProfileCardContainer className="carousel" profiles={profiles} prevProfile={prevProfile} curProfile={curProfile} nextProfile={nextProfile} onClickHandlerPrev={handlePrevProfile} onClickHandlerNext={handleNextProfile}/>
+        <div className="cardContainer">
+          <ProfileCardContainer
+            className="carousel"
+            profiles={profiles}
+            prevProfile={prevProfile}
+            curProfile={curProfile}
+            nextProfile={nextProfile}
+            onClickHandlerPrev={handlePrevProfile}
+            onClickHandlerNext={handleNextProfile}
+          />
         </div>
       )}
       {loading ? (
         <LoadingScreen />
       ) : (
-        <div className='btnContainer'>
+        <div className="btnContainer">
           <PrevButton onClickHandler={handlePrevProfile} />
           <GetRandomButton onClickHandler={handleRndmProfile} />
           <NextButton onClickHandler={handleNextProfile} />
